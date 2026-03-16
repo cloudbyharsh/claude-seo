@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.env
+.env.local
+reports/
+*.log
+.claude/settings.local.json
+__pycache__/
+*.pyc
+*.pyo

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude SEO Auditor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── NAV ────────────────────────────────────────────────────── -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <span class="logo">⚡ Claude SEO Auditor</span>
+    <span class="nav-tag">Powered by Python · No API cost</span>
+  </div>
+</nav>
+
+<!-- ── HERO / INPUT ───────────────────────────────────────────── -->
+<section class="hero">
+  <h1>SEO Health Check</h1>
+  <p class="hero-sub">Crawlability · Technical · On-Page · Content · Authority</p>
+  <div class="input-row">
+    <input id="urlInput" type="url" placeholder="https://yourwebsite.com" autocomplete="off" />
+    <button id="auditBtn" onclick="runAudit()">
+      <span class="btn-icon">🔍</span> Run Audit
+    </button>
+    <button id="pdfBtn" class="btn-secondary" onclick="downloadPDF()" disabled>
+      <span class="btn-icon">📄</span> Export PDF
+    </button>
+  </div>
+  <div id="errorMsg" class="error-msg hidden"></div>
+</section>
+
+<!-- ── LOADER ─────────────────────────────────────────────────── -->
+<div id="loader" class="loader hidden">
+  <div class="spinner"></div>
+  <p>Auditing <span id="loaderUrl"></span> …</p>
+</div>
+
+<!-- ── RESULTS ────────────────────────────────────────────────── -->
+<main id="results" class="results hidden">
+
+  <!-- Score banner -->
+  <section class="score-banner" id="scoreBanner">
+    <div class="score-left">
+      <div class="score-ring-wrap">
+        <svg class="score-ring" viewBox="0 0 120 120">
+          <circle class="ring-bg"    cx="60" cy="60" r="50"/>
+          <circle class="ring-fill"  cx="60" cy="60" r="50" id="ringFill"/>
+        </svg>
+        <div class="score-num-wrap">
+          <span class="score-num" id="scoreNum">0</span>
+          <span class="score-denom">/100</span>
+        </div>
+      </div>
+      <div class="score-labels">
+        <span class="score-band" id="scoreBand">–</span>
+        <span class="score-url"  id="scoreUrl">–</span>
+      </div>
+    </div>
+    <div class="summary-pills" id="summaryPills"></div>
+  </section>
+
+  <!-- Category breakdown -->
+  <section class="section">
+    <h2 class="section-title">Category Scores</h2>
+    <div class="cat-grid" id="catGrid"></div>
+  </section>
+
+  <!-- Issues -->
+  <section class="section">
+    <h2 class="section-title">Findings</h2>
+    <div class="issue-filters" id="issueFilters">
+      <button class="filter-btn active" data-sev="all"   onclick="filterIssues('all')">All</button>
+      <button class="filter-btn critical" data-sev="Critical" onclick="filterIssues('Critical')">Critical</button>
+      <button class="filter-btn high"    data-sev="High"     onclick="filterIssues('High')">High</button>
+      <button class="filter-btn medium"  data-sev="Medium"   onclick="filterIssues('Medium')">Medium</button>
+      <button class="filter-btn low"     data-sev="Low"      onclick="filterIssues('Low')">Low</button>
+    </div>
+    <div id="issueList"></div>
+  </section>
+
+  <!-- Technical snapshot -->
+  <section class="section">
+    <h2 class="section-title">Technical Snapshot</h2>
+    <div class="snap-grid" id="snapGrid"></div>
+  </section>
+
+  <!-- On-page details -->
+  <section class="section">
+    <h2 class="section-title">On-Page Details</h2>
+    <div class="detail-grid" id="detailGrid"></div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Built with ❤️ using FastAPI + BeautifulSoup · No Claude API required
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
